@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jota IA - Access Terminal</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="grid-lines"></div>
+        <canvas id="matrix-canvas"></canvas>
+    </div>
+
+    <div class="login-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn-red"></span>
+                <span class="btn-yellow"></span>
+                <span class="btn-green"></span>
+            </div>
+            <div class="terminal-title">SECURE_TERMINAL@JOTA_IA</div>
+        </div>
+
+        <div class="terminal-body">
+            <div class="logo-container">
+                <div class="logo-text">
+                    <span class="glitch" data-text="JOTA IA">JOTA IA</span>
+                </div>
+                <div class="logo-subtitle">// ARTIFICIAL INTELLIGENCE SYSTEM v2.0</div>
+            </div>
+
+            <div class="terminal-output">
+                <p class="typing-text">> Initializing secure connection...</p>
+                <p class="typing-text">> Checking encryption protocols...</p>
+                <p class="typing-text">> Authentication required</p>
+                <p class="typing-text prompt">> Enter credentials:</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <div class="input-group">
+                    <label for="login-username">> USERNAME</label>
+                    <input type="text" id="login-username" name="username" placeholder="enter_username" autocomplete="username" required>
+                    <div class="input-line"></div>
+                </div>
+
+                <div class="input-group">
+                    <label for="login-password">> PASSWORD</label>
+                    <input type="password" id="login-password" name="password" placeholder="enter_password" autocomplete="current-password" required>
+                    <div class="input-line"></div>
+                </div>
+
+                <div class="error-message" id="login-error"></div>
+
+                <button type="submit" class="submit-btn">
+                    <span class="btn-text">ACCESS SYSTEM</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </form>
+
+            <div class="footer-text">
+                <p>🤖 <b>JOTA IA v2.0</b> — Inteligência Artificial local, multimodal</p>
+                <p>🔒 <b>Segurança:</b> HTTPS, autenticação forte, arquivos protegidos</p>
+                <p>🧠 <b>Modelos:</b> Llama 3, Qwen2, DeepSeek — até 32k tokens</p>
+                <p>📁 <b>Suporte:</b> Texto, PDF, imagens, código, ZIP, Excel e mais</p>
+                <p>🛡️ <b>Privacidade total:</b> Seus dados nunca saem do seu servidor</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

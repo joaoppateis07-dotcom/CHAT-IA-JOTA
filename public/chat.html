@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jota IA - Artificial Intelligence</title>
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+    <!-- Overlay de Drag & Drop -->
+    <div class="drop-overlay" id="drop-overlay">
+        <div class="drop-overlay-content">
+            <div class="drop-icon">📂</div>
+            <h2>Solte o arquivo aqui</h2>
+            <p>Qualquer tipo de arquivo é aceito</p>
+        </div>
+    </div>
+
+    <!-- Input de arquivo oculto -->
+    <input type="file" id="file-input" style="display:none" multiple accept="*/*">
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">JOTA IA</span>
+            </div>
+            <button class="new-chat-btn" id="new-chat-btn">
+                <span class="btn-icon">+</span>
+                <span class="btn-text">Nova Conversa</span>
+            </button>
+        </div>
+
+        <div class="conversations-list" id="conversations-list">
+            <!-- Conversations will be loaded here -->
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <span id="user-initial">U</span>
+                </div>
+                <div class="user-details">
+                    <div class="username" id="username">Usuário</div>
+                    <div class="user-status">Online</div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logout-btn" title="Sair">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Chat Area -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="chat-header">
+            <button class="toggle-sidebar-btn" id="toggle-sidebar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="header-title">
+                <h1>Jota IA</h1>
+                <p class="subtitle">Assistente de Inteligência Artificial</p>
+            </div>
+            <div class="header-status">
+                <div class="status-indicator"></div>
+                <span>Ativo</span>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-container" id="chat-container">
+            <div class="welcome-screen" id="welcome-screen">
+                <div class="welcome-logo">
+                    <div class="welcome-icon">🤖</div>
+                    <h1 class="welcome-title">Bem-vindo ao Jota IA</h1>
+                    <p class="welcome-subtitle">Seu assistente de inteligência artificial extremamente inteligente</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Extremamente Inteligente</h3>
+                        <p>Conhecimento vasto sobre todos os assuntos possíveis</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Respostas Rápidas</h3>
+                        <p>Processamento ultra-rápido com IA de última geração</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💾</div>
+                        <h3>Histórico Salvo</h3>
+                        <p>Todas as conversas são salvas e acessíveis</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Interface Moderna</h3>
+                        <p>Design tecnológico com animações dinâmicas</p>
+                    </div>
+                </div>
+
+                <div class="suggestions">
+                    <p class="suggestions-title">Experimente perguntar:</p>
+                    <div class="suggestion-chips">
+                        <button class="suggestion-chip">Como funciona a inteligência artificial?</button>
+                        <button class="suggestion-chip">Explique física quântica de forma simples</button>
+                        <button class="suggestion-chip">Como posso aprender programação?</button>
+                        <button class="suggestion-chip">Qual o futuro da tecnologia?</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="messages" id="messages">
+                <!-- Messages will appear here -->
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-container">
+            <!-- Preview de arquivo anexado -->
+            <div class="file-preview-area" id="file-preview-area" style="display:none">
+                <div class="file-preview-card" id="file-preview-card">
+                    <div class="file-preview-icon" id="file-preview-icon">📄</div>
+                    <div class="file-preview-info">
+                        <div class="file-preview-name" id="file-preview-name">arquivo.txt</div>
+                        <div class="file-preview-size" id="file-preview-size">0 KB</div>
+                    </div>
+                    <button class="file-remove-btn" id="file-remove-btn" title="Remover arquivo">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="file-upload-progress" id="file-upload-progress">
+                    <div class="progress-bar" id="progress-bar"></div>
+                    <span class="progress-text" id="progress-text">Analisando arquivo...</span>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <button class="input-btn" id="attach-btn" title="Anexar arquivo (ou arraste, cole)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                    </svg>
+                </button>
+                
+                <textarea 
+                    id="message-input" 
+                    placeholder="Digite sua mensagem aqui..." 
+                    rows="1"
+                ></textarea>
+
+                <button class="send-btn" id="send-btn" title="Enviar mensagem">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+            <div class="input-footer">
+                <span class="ai-model">🤖 Jota IA &middot; arraste, cole ou clique 📎 para arquivos</span>
+                <span class="char-count" id="char-count">0 caracteres</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/chat.js"></script>
+</body>
+</html>
