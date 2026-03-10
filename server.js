@@ -1,8 +1,32 @@
-require('dotenv').config();
+// --- ROTA DE GERAÇÃO DE MÍDIA (imagem, áudio, etc.) ---
+const { generateMedia } = require('./ai-media');
+
+app.post('/api/generate-media', isAuthenticated, async (req, res) => {
+    const { type, prompt, text } = req.body;
+    try {
+        const result = await generateMedia({ type, prompt, text });
+        if (!result) return res.status(500).json({ error: 'Falha ao gerar mídia' });
+        // Se for áudio, retorna como arquivo
+        if (type === 'audio') {
+            res.setHeader('Content-Type', 'audio/mpeg');
+            return res.end(result);
+        }
+        // Se for imagem, retorna URL
+        if (type === 'image') {
+            return res.json({ url: result });
+        }
+        // Outros tipos podem ser expandidos
+        res.json({ result });
+    } catch (err) {
+        res.status(500).json({ error: 'Erro ao gerar mídia', details: err.message });
+    }
+});
+
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 const { initDatabase, userDB, conversationDB, messageDB, fileDB } = require('./database');
@@ -11,7 +35,7 @@ const fileProcessor = require('./file-processor');
 const https = require('https');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Criar pasta de uploads
 const UPLOADS_DIR = path.join(__dirname, 'uploads');

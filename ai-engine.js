@@ -216,7 +216,22 @@ Seja sempre útil, detalhado e forneça exemplos quando possível.`;
     }
 }
 
-// Criar instância singleton
-const jotaAI = new JotaAI();
+// Integração com orquestrador híbrido
+const { hybridAI } = require('./ai-hybrid');
 
+class HybridJotaAI extends JotaAI {
+    async generateResponse(messages, imageBase64 = null) {
+        // Se for imagem, usa lógica antiga (Ollama vision)
+        if (imageBase64) {
+            return await super.generateResponse(messages, imageBase64);
+        }
+        // Usa orquestrador híbrido para texto
+        return await hybridAI([
+            { role: 'system', content: this.systemPrompt },
+            ...messages
+        ]);
+    }
+}
+
+const jotaAI = new HybridJotaAI();
 module.exports = jotaAI;
